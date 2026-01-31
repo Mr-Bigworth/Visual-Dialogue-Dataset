@@ -18,6 +18,10 @@
 
 本项目旨在为新一代多模态对话系统提供大规模、高一致性、高挑战性的研究资源。
 
+### 数据下载
+
+百度网盘：链接 (https://pan.baidu.com/s/1FKVg3reGKFiAVAJ7pgOHGg?pwd=0131)
+
 ---
 
 ## ✨ 核心特性
@@ -178,21 +182,6 @@ TriFusion-3M 可广泛应用于：
 * 智能交互助手
 * 人机交互系统
 * 具身智能系统
-
-## 🛠️ 使用方法
-
-### 数据下载
-
-百度网盘：链接 ()
-
-### 数据加载示例
-
-```python
-import json
-
-with open("data/sample.json") as f:
-    sample = json.load(f)
-```
 
 ---
 
