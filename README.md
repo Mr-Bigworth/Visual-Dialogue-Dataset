@@ -1,15 +1,225 @@
-# Visual-Dialogue-Dataset
-大规模视觉对话数据集
+# TriFusion-3M：面向视觉对话的三模态数据集
 
-| Dataset classification      | 图片数量  | 对话数量 | 对话音频（以小时计） |
-|:----------:|:--------:|:--------:|:--------:|
-| Smart Home (Virtual Assistant) | 14500907 | 14563468 | 17568.76 |
-| Intelligent service (virtual customer service) | 11832740 | 11883790 | 14336.11 |
-| Smart Education (Virtual Teacher) | 14848929 | 14912992 | 17990.41 |
-| Smart City       | 9280583  | 9320622  | 11244.0  |
-| Total         | 50463159 | 50680872 | 61139.28 |
-Data image source
-These datasets cover a variety of visual question answering (VQA) tasks, promoting the development of artificial intelligence in the fusion understanding of images, videos, audio, and text.
-They include MMChat and AVSD, which focus on multimodal dialogues, early VQA datasets DAQUAR and Visual Genome, FM-IQA, which supports multilingual question answering, and CLEVR and FVQA, which emphasize visual reasoning and knowledge combination. In addition, these datasets include VQA-Med (medical images) and ScienceQA (scientific fields) for specific fields, as well as TextVQA, which processes text information in images. Each dataset has its own unique focus and challenges, and each has promoted the progress of computer vision and natural language processing technology in different directions, from basic object recognition to complex scene understanding and multimodal interaction.
-In total, these datasets contain more than 50,463,159 images and 50,680,872 dialogues, with a total dialogue time of 61,139.28 hours. These datasets can be used in a variety of artificial intelligence applications, such as virtual assistants, customer service robots, educational robots, etc., and have a wide range of uses in processing and understanding image-text dialogues.
-You can download the UAV-CM dataset from the following link: Download. Please note that you may need to have a Baidu account or follow specific instructions to access the download link.
+一个融合**图像–文本–语音（Image–Text–Speech）**的超大规模三模态数据集，结合**语义语音合成**与**粒度感知困难负样本生成机制**，用于推动视觉对话与多模态推理研究的发展。
+
+---
+
+## 📌 项目简介
+
+**TriFusion-3M** 是一个面向通用视觉对话任务构建的高质量三模态数据集，致力于提升多模态理解、推理能力以及语音增强视觉语言学习效果。
+
+本数据集同时包含：
+
+* 🖼️ 图像模态（Image）
+* 📝 多轮文本对话（Text）
+* 🔊 语义合成语音（Speech）
+
+并引入**粒度感知困难负样本（Granularity-Aware Hard Negatives）**，支持对比学习与复杂推理任务训练。
+
+本项目旨在为新一代多模态对话系统提供大规模、高一致性、高挑战性的研究资源。
+
+---
+
+## ✨ 核心特性
+
+* **三模态语义对齐**
+  实现图像、文本与语音之间的高一致性联合建模。
+
+* **多模态驱动语音合成**
+  融合视觉语义与情感信息，提升语音自然度与表达能力。
+
+* **粒度感知困难负样本**
+  按问题复杂度自适应生成高质量负样本。
+
+* **多领域覆盖**
+  支持智慧教育、智能家居、智能服务、智慧城市等多场景应用。
+
+* **大规模与均衡性**
+  图像、对话轮次与语音时长分布均衡，适合大规模训练。
+
+---
+
+## 🏗️ 数据集构建流程
+
+TriFusion-3M 的构建流程主要包含三个核心模块：
+
+```
+文本采集 → 图文匹配 → 语音合成
+        ↓
+     粒度分析
+        ↓
+   困难负样本生成
+```
+
+---
+
+### 1️⃣ 数据获取与预处理
+
+#### 数据来源
+
+文本对话数据来源于多种异构渠道，包括：
+
+* 社交媒体平台
+* 公开对话数据集
+* 客服服务日志
+* 问答社区
+* 开放域论坛
+
+覆盖知识问答、情感交互与任务导向等多种对话类型。
+
+#### 数据处理流程
+
+* 统一清洗与规范化处理
+* 语义标注：
+  * 情感标签
+  * 实体信息
+  * 对话结构
+* 通过主流 TTS 系统合成语音
+
+#### 数据融合
+
+整合多个经典数据集资源：
+
+* VisDial
+* VQA
+* MSCOCO
+* CLEVR
+* RefCOCO
+
+增强数据集的场景覆盖能力与泛化能力。
+
+---
+
+### 2️⃣ 多模态驱动语音合成模块
+
+为提升语音生成的自然性与跨模态一致性，提出多模态驱动语音合成框架。
+
+#### 双分支生成机制
+
+* **问题分支**：仅基于文本进行语音合成
+* **回答分支**：融合视觉与文本信息进行增强合成
+
+#### 核心技术
+
+* 轻量级目标检测提取视觉实体
+* 跨模态语义特征融合
+* 图文情感联合建模
+* 基于 SSML 的韵律控制
+
+该模块能够显著提升：
+
+* 情感表达能力
+* 语音自然度
+* 语义对齐程度
+
+---
+
+### 3️⃣ 粒度感知困难负样本生成模块
+
+为增强数据集在推理任务中的判别能力，引入粒度感知负样本生成机制。
+
+#### 问题粒度划分
+
+根据语义复杂度，将问题划分为：
+
+* **简单问题**：属性、颜色、位置等显式信息
+* **复杂问题**：因果推理、意图理解、时间推断等
+
+粒度判定方式：
+
+* 大语言模型预测
+* 规则驱动句法分析
+* 加权融合决策
+
+#### 负样本生成策略
+
+| 问题类型 | 生成方式             |
+| ---- | ---------------- |
+| 简单问题 | 属性替换、实体扰动、空间关系扰动 |
+| 复杂问题 | 因果反转、逻辑扭曲、语义误导   |
+
+每个样本构成如下三元组结构：
+
+```
+(问题, 正确回答, 困难负回答)
+```
+
+用于支持对比学习与鲁棒推理训练。
+
+---
+
+## 📊 数据集统计特性
+
+TriFusion-3M 覆盖四大核心应用场景：
+
+* 🏙️ 智慧城市
+* 🤖 智能服务
+* 🎓 智慧教育
+* 🏠 智能家居
+
+主要特点包括：
+
+* 多样化视觉场景
+* 多轮对话结构
+* 模态分布均衡
+* 高语义复杂度
+
+为多模态学习任务提供坚实数据基础。
+
+---
+
+## 🚀 应用场景
+
+TriFusion-3M 可广泛应用于：
+
+* 视觉对话系统
+* 多模态推理模型
+* 语音增强视觉语言模型
+* 智能交互助手
+* 人机交互系统
+* 具身智能系统
+
+## 🛠️ 使用方法
+
+### 数据下载
+
+百度网盘：链接 ()
+
+### 数据加载示例
+
+```python
+import json
+
+with open("data/sample.json") as f:
+    sample = json.load(f)
+```
+
+---
+
+## 📜 使用许可
+
+本数据集仅限**科研与学术研究用途**使用。
+
+具体授权协议请参见 LICENSE 文件。
+
+---
+
+## 🤝 参与贡献
+
+欢迎社区参与共建：
+
+* 提交 Issue
+* 提出功能建议
+* 贡献代码与数据处理脚本
+
+重大修改请先发起讨论。
+
+---
+
+## ⭐ 致谢
+
+感谢开源社区及相关公开数据集对本项目的支持。
+
+---
+
+如果本项目对你有帮助，欢迎在 GitHub 上点个 ⭐ 支持我们！
